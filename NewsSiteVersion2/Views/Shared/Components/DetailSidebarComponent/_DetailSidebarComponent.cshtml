@@ -1,0 +1,15 @@
+﻿@model NewsSiteVersion2.Models.Components.DetailSidebarModel
+
+
+<h5> Last added @Model.News.First().Category.Name news </h5>
+@foreach (var item in Model.News)
+{
+    <div class="card-body d-flex flex-column align-items-start">
+        <strong class="d-inline-block mb-2 text-primary">@item.Category.Name</strong>
+        <h6 class="mb-0">
+            <a class="text-dark" href="#">@item.Title</a>
+        </h6>
+        <p class="card-text mb-auto">@item.Subtitle</p>
+        <a asp-action="Detail" asp-route-id="@item.Id">Continue Reading</a>
+    </div>
+}

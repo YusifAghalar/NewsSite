@@ -1,0 +1,105 @@
+﻿@model List<NewsSiteVersion2.Entities.NewsWithAuthor>
+@using System;
+@using System.Text;
+@{
+    ViewData["Title"] = "Index";
+    StringBuilder sb = new StringBuilder();
+}
+
+<h2>Index</h2>
+<form asp-action="Search">
+
+    <div class="input-group">
+        <input type="text" class="form-control" name="searchTerm" placeholder="Search for...">
+        <span class="input-group-btn">
+            <button class="btn btn-search" type="submit"><i class="fa fa-search fa-fw"></i> Search</button>
+        </span>
+    </div>
+</form>
+
+<p>
+    <a asp-action="Create">Add news</a>
+</p>
+<p>
+    <a asp-action="AddCategory">Add cateogory</a>
+</p>
+<table class="table">
+    <thead>
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.First().News.Title)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.First().News.Subtitle)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.First().News.Text)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.First().News.IsHeaderNews)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.First().News.Imagepath)
+            </th>
+            <th>
+                Author
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.First().News.Category.Name)
+            </th>
+            <th>
+                Modified On
+            </th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var item in Model)
+        {
+            <tr>
+                <td>
+                    @Html.DisplayFor(modelItem => item.News.Title)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.News.Subtitle)
+                </td>
+                <td>
+                  @item.News.Text.Substring(0,110)
+                        
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.News.IsHeaderNews)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.News.Imagepath)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.AuthorName)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.News.Category.Name)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.News.CreatedOn)
+                </td>
+                <td>
+                    <a asp-action="Edit" asp-route-id="@item.News.Id">Edit</a> 
+                    <a asp-action="Details" asp-route-id="@item.News.Id">Details</a> 
+                    <a asp-action="Delete" asp-controller="Admin" asp-route-id="@item.News.Id">Delete</a>
+                </td>
+            </tr>
+        }
+    </tbody>
+</table>
+@Html.PagedListPager(
+    ViewBag.news as IPagedList<NewsEntities.Concrete.News>,
+    page => Url.Action("Index", "Admin", new {  pageNumber=page }),
+    new PagedListRenderOptions
+    {
+        LiElementClasses = new string[] { "page-item" },
+        PageClasses = new string[] { "page-link" },
+        DisplayLinkToLastPage = PagedListDisplayMode.Never,
+        DisplayEllipsesWhenNotShowingAllPageNumbers=false
+
+
+})

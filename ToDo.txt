@@ -1,0 +1,6 @@
+1.MenuComponente Controlleri Elave et _ OK
+2.Identity Route deyish _ OK
+3.Details Admin Duzelt _ OK
+4.Userlere Paging qoy  _ OK
+5.Category Elave etmek  _ OK
+6.Role Elave etmeA

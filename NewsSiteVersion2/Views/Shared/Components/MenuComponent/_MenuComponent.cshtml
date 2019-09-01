@@ -1,0 +1,14 @@
+﻿@model NewsSiteVersion2.Models.Components.MenuModel
+
+<div class="container">
+    <div class="nav-scroller py-1 mb-2">
+        <nav class="nav d-flex justify-content-between">
+            <a asp-action="Index" asp-controller="Home" class="p-2 text-muted">News</a>
+            @for (int i = 0; i < Model.Categories.Count; i++)
+            {
+                <a asp-action="News" asp-controller="Home" asp-route-categoryname="@Model.Categories[i].Name" class="p-2 text-muted">@Model.Categories[i].Name</a>
+            }
+         </nav>
+    </div>
+</div>
+

@@ -1,0 +1,27 @@
+﻿@model NewsSiteVersion2.Models.Components.AdminSidebarModel
+@{
+    ViewData["Title"] = "_AdminCategoryViewComponent";
+}
+<div class="sidebar-sticky">
+    <ul class="nav flex-column">
+
+        <li class="nav-item  active"><a asp-action="Index" class="nav-link active" asp-controller="Home">Home</a></li>
+        <li class="nav-item  active"><a asp-action="Index" class="nav-link active" asp-controller="Admin">News</a></li>
+        <li class="nav-item  active"><a asp-action="Index" class="nav-link active" asp-controller="UserManagement">Users</a></li>
+        <li><hr /></li>
+        @foreach (var item in Model.Categories)
+        {
+
+        <li class="nav-item ">
+            <a asp-action="Search" asp-route-categoryName="@item.Name" class="nav-link active ">
+                @item.Name
+            </a>
+            <a asp-action="DeleteCategory" class="btn btn-danger btn-sm " asp-route-id="@item.Id">Delete</a>
+        </li>
+
+        }
+    </ul>
+
+
+</div>
+

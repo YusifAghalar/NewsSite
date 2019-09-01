@@ -1,0 +1,54 @@
+﻿@model NewsSiteVersion2.Models.DetailViewModel
+
+@{
+    ViewData["Title"] = "";
+}
+
+<h2>Detail</h2>
+<div class="row">
+    <div class="col-md-8 blog-main">
+        <h3 class="pb-3 mb-4 font-italic border-bottom">
+            @Model.News.Title
+        </h3>
+
+        <div class="blog-post">
+            <h2 class="blog-post-title">@Model.News.Subtitle</h2>
+            <hr />
+            @if (Model.News.Imagepath != null)
+            {
+                <img src="@(Model.News.Imagepath)" style="width:700px" class="img-fluid" />
+            }
+            else
+            {
+                <img src="~/images/33519396-7e56363c-d79d-11e7-969b-09782f5ccbab.png" class="img-fluid" />
+            }
+
+
+
+            <hr />
+            <p class="blog-post-meta">@Model.News.CreatedOn.ToShortDateString()</p>
+            <hr />
+            @Html.Raw(Model.News.Text)
+
+            
+            
+            
+           
+        </div>
+
+
+    </div>
+    <div class="col-md-3 blog-main">
+
+        @await Component.InvokeAsync("DetailSidebarComponent", Model.News.CategoryId)
+    </div>
+</div>
+<div>
+    @if (User.IsInRole("Admin"))
+    {
+        <a asp-action="Edit" asp-controller="Admin" asp-route-id="@Model.News.Id">Edit</a>
+    }
+
+    <a asp-action="Index">Back to News</a>
+    <a asp-action="AddToNewsModal" asp-controller="Home" asp-route-id="@Model.News.Id">Add to list</a>
+</div>

@@ -1,0 +1,62 @@
+﻿@model NewsSiteVersion2.Models.IndexUserModel
+@{
+    ViewData["Title"] = "Users";
+}
+<div class="container  h-100">
+    <div class="d-flex  float-left justify-content-center h-100">
+        <form asp-action="Index">
+            <div class="searchbar">
+                <input class="search_input"  type="text" name="searchTerm" placeholder="Search...">
+                <button href="#" type="submit" class="search_icon"><i class="fas fa-search"></i></button>
+            </div>
+        </form>
+
+    </div>
+</div>
+
+<table class="table table-striped">
+    <thead>
+        <tr>
+            <th scope="col">@Html.DisplayNameFor(Model => Model.Users.First().User.Name)</th>
+            <th scope="col">@Html.DisplayNameFor(Model => Model.Users.First().User.Surname)</th>
+            <th scope="col">@Html.DisplayNameFor(Model => Model.Users.First().User.Email)</th>
+            <th scope="col">@Html.DisplayNameFor(Model => Model.Users.First().User.UserName)</th>
+            <th scope="col">Role</th>
+            <th scope="col"></th>
+        </tr>
+    </thead>
+    <tbody>
+
+        @foreach (var item in Model.Users)
+        {
+            <tr>
+                <td>@Html.DisplayFor(Model => item.User.Name)</td>
+                <td>@Html.DisplayFor(Model => item.User.Surname)</td>
+                <td>@Html.DisplayFor(Model => item.User.Email)</td>
+                <td>@Html.DisplayFor(Model => item.User.UserName)</td>
+                <td>@Html.DisplayFor(Model => item.RoleName)</td>
+                <td>
+                    <a asp-action="Details" asp-route-id="@item.User.Id" class="btn btn-outline-info">Details</a>
+                    <a asp-action="Edit" asp-controller="UserManagement" asp-route-id="@item.User.Id" class="btn btn-outline-secondary">Edit</a>
+                    <a asp-action="Delete" asp-route-id="@item.User.Id" class="btn btn-outline-danger">Delete</a>
+                </td>
+            </tr>
+        }
+
+    </tbody>
+</table>
+@Html.PagedListPager(
+    Model.tempUser,
+    page => Url.Action("Index", "UserManagement", new {  pageNumber=page,searchTerm=Model.SearchTerm }),
+    new PagedListRenderOptions
+    {
+        LiElementClasses = new string[] { "page-item" },
+        PageClasses = new string[] { "page-link" },
+        DisplayLinkToLastPage = PagedListDisplayMode.Never,
+        DisplayEllipsesWhenNotShowingAllPageNumbers=false
+
+
+})
+
+
+
